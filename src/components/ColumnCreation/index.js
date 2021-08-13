@@ -4,7 +4,7 @@ import RowCreation from '../RowCreation'
 import './index.css'
 
 
-let getRowsFromLocalStorage=()=>{
+const getRowsFromLocalStorage=()=>{
     let stringifiedRows = localStorage.getItem("rows");
     let parsedRows = JSON.parse(stringifiedRows);
     if (parsedRows === null) {
@@ -15,10 +15,10 @@ let getRowsFromLocalStorage=()=>{
 }
 let rows=getRowsFromLocalStorage()
 if(rows.length===0){
-    rows=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+    rows=Array.from({length: 20}).map((v, i) => i+1)
 }
 
-let getColumnListFromLocalStorage=()=>{
+const getColumnListFromLocalStorage=()=>{
     let stringifiedTodoList = localStorage.getItem("columnList");
     let parsedColumnList = JSON.parse(stringifiedTodoList);
     if (parsedColumnList === null) {
@@ -30,7 +30,7 @@ let getColumnListFromLocalStorage=()=>{
 let columnList=getColumnListFromLocalStorage()
 console.log(columnList)
 
-let getRowListFromLocalStorage=()=>{
+const getRowListFromLocalStorage=()=>{
     let stringifiedRowList = localStorage.getItem("rowList");
     let parsedRowList = JSON.parse(stringifiedRowList);
     if (parsedRowList === null) {
