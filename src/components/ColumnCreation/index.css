@@ -1,0 +1,104 @@
+.bg-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+.my-form{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    padding: 20px;
+    color: #fff;
+    border-radius: 20px;
+}
+.input-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.label{
+    margin-right: 10px;
+}
+.input{
+    padding: 5px;
+    outline: none;
+    width: 250px;
+    background-color: rgb(236, 243, 243);
+    border: none;
+}
+.select{
+    padding: 5px;
+    outline: none;
+    width: 260px;
+    background-color: rgb(236, 243, 243);
+    border: none;
+}
+.table-container{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 70%;   
+}
+.table-creation{
+    
+}
+
+h1{
+    font-size: 30px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  table{
+    width:100%;
+    table-layout: fixed;
+  }
+  .tbl-header{
+    background-color: rgba(255,255,255,0.3);
+   }
+  .tb-content{
+    height:300px;
+    overflow-x:auto;
+    margin-top: 0px;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  
+  
+  /* demo styles */
+  
+  @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+  body{
+    background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+    background: linear-gradient(to right, #25c481, #25b7c4);
+    font-family: 'Roboto', sans-serif;
+  }
+  section{
+    margin: 50px;
+  }
+  .btn-container{
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+      width: 70%;
+  }
+  button{
+      color: white;
+      background-color: rgb(126, 243, 208);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      align-self: flex-end;
+      border-radius: 12px;
+      padding: 10px;
+      min-width: 80px;
+      margin-right: 20px;
+      margin-top: 10px;
+      color: rgb(11, 11, 12);
+      font-weight: bold;
+  }
