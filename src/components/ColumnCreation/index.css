@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 .bg-container{
     display: flex;
     flex-direction: column;
@@ -43,9 +44,6 @@
     flex-direction: column;
     width: 70%;   
 }
-.table-creation{
-    
-}
 
 h1{
     font-size: 30px;
@@ -69,23 +67,16 @@ h1{
     border: 1px solid rgba(255,255,255,0.3);
   }
   .tb-view-content{
-    
+    max-height: 300px;
     overflow-x:auto;
     margin-top: 0px;
     border: 1px solid rgba(255,255,255,0.3);
   }
-  
-  
-  /* demo styles */
-  
-  @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+   
   body{
     background: -webkit-linear-gradient(left, #25c481, #25b7c4);
     background: linear-gradient(to right, #25c481, #25b7c4);
     font-family: 'Roboto', sans-serif;
-  }
-  section{
-    margin: 50px;
   }
   .btn-container{
       display: flex;

@@ -42,7 +42,7 @@ const getRowListFromLocalStorage=()=>{
 let rowList=getRowListFromLocalStorage()
         
 class ColumnCreation extends Component{
-    state={columnName:'',columnType:'Text',multipleSelect:'',submitForm:false,rows:rows
+    state={columnName:'',columnType:'',multipleSelect:'',submitForm:false,rows:rows
 }
 
     onChangeType = event => {
@@ -95,6 +95,11 @@ class ColumnCreation extends Component{
         this.setState({[id]:event.target.value})
         rowList.push({[id]:event.target.value})
     }
+    onChangeMultiEvent=(id,event)=>{
+        
+        this.setState({[id]:event.target.value,multipleSelect:''})
+        rowList.push({[id]:event.target.value})
+    }
     onAdd=()=>{
         const {rows}=this.state
         this.setState({rows:[...rows, rows.length+1]})
@@ -105,9 +110,16 @@ class ColumnCreation extends Component{
         let viewTableList=[]
         for(let each of rowList){
             let keyValue=(Object.keys(each))[0]
-            if(!viewTableList.includes(keyValue[keyValue.length-1])){
+            let index=0
+            for (let value of keyValue){
+                if(!isNaN(value)){
+                    index++
+                    break
+                }
+            }
+            if(!viewTableList.includes(keyValue.slice(index,keyValue.length))){
                 if(each[keyValue]!==''){
-                    viewTableList.push(keyValue[keyValue.length-1])
+                    viewTableList.push(keyValue.slice(index,keyValue.length))
                 }
                 
             }
@@ -159,7 +171,7 @@ class ColumnCreation extends Component{
                             {rows.map(eachRow=>(
                                 <tr key={eachRow.id}>
                                     {columnList.map(eachList=>(
-                                            <RowCreation columnName={eachList.columnName} columnType={eachList.columnType} columnCount={columnCount} onChangeInputEvent={this.onChangeInputEvent} rowValue={rowList} id={(eachList.columnName)+String(eachRow)} key={(eachList.columnName)+String(eachRow)} multipleSelect={eachList.multipleSelect} />
+                                            <RowCreation columnName={eachList.columnName} columnType={eachList.columnType} columnCount={columnCount} onChangeMultiEvent={this.onChangeMultiEvent} onChangeInputEvent={this.onChangeInputEvent} rowValue={rowList} id={(eachList.columnName)+String(eachRow)} key={(eachList.columnName)+String(eachRow)} multipleSelect={eachList.multipleSelect} />
                                         ))}
                                 </tr>
                             ))}

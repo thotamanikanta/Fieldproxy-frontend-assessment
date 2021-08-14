@@ -1,15 +1,14 @@
 import './index.css'
 
 const RowCreation=(props)=>{
-    const {multipleSelect,columnType,id,onChangeInputEvent,rowValue}=props
-    let inputType
-    
+    const {columnType,id,onChangeInputEvent,rowValue,onChangeMultiEvent}=props
+    let {multipleSelect}=props
+    let inputType='text'
+    console.log(columnType,inputType)
     if(columnType==='date'){
         inputType='date'
     }
-    else{
-        inputType='text'
-    }
+
     let renderRow=null
     let rowId=id
    let rowList=[]
@@ -36,9 +35,9 @@ const RowCreation=(props)=>{
         onChangeInputEvent(rowId,event)    
     }
     const onChangeOption=(event)=>{
-        onChangeInputEvent(rowId,event)
+        onChangeMultiEvent(rowId,event)
     }
-    if(multipleSelect===''){
+    if(columnType!=='multiSelect'){
          renderRow=(
             <td className="column-heading">
                     <input type={inputType} className="row-text" id={rowId} defaultValue={inputValue}  onBlur={onChangeInput}/>
@@ -49,7 +48,7 @@ const RowCreation=(props)=>{
         const multiList=multipleSelect.split(',')
          renderRow=(
             <td className="column-heading">
-                    <select className="multi-select" id={rowId} defaultValue={inputValue} onChange={onChangeOption}>
+                    <select className="multi-select" id={rowId} onBlur={onChangeOption}>
                         <option>select</option>
                         {multiList.map((each)=>(
                             <option value={each}>{each}</option>
@@ -57,6 +56,7 @@ const RowCreation=(props)=>{
                     </select>
                 </td>
         )
+        multipleSelect=''
     }
    
     return (
