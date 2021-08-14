@@ -13,8 +13,9 @@ const ViewTable=(props)=>{
     }
    
     return (
-        <td className="column-heading">
-                    {inputValue}
+        <td className="table-display">
+                <p>{inputValue}</p>
+                    
                 </td>
     )
 }

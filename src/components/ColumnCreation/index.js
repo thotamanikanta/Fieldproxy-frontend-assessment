@@ -97,7 +97,7 @@ class ColumnCreation extends Component{
     }
     onChangeMultiEvent=(id,event)=>{
         
-        this.setState({[id]:event.target.value,multipleSelect:''})
+        this.setState({[id]:event.target.value,multiSelect:''})
         rowList.push({[id]:event.target.value})
     }
     onAdd=()=>{
@@ -110,16 +110,9 @@ class ColumnCreation extends Component{
         let viewTableList=[]
         for(let each of rowList){
             let keyValue=(Object.keys(each))[0]
-            let index=0
-            for (let value of keyValue){
-                if(!isNaN(value)){
-                    index++
-                    break
-                }
-            }
-            if(!viewTableList.includes(keyValue.slice(index,keyValue.length))){
+            if(!viewTableList.includes(keyValue[keyValue.length-1])){
                 if(each[keyValue]!==''){
-                    viewTableList.push(keyValue.slice(index,keyValue.length))
+                    viewTableList.push(keyValue[keyValue.length-1])
                 }
                 
             }
