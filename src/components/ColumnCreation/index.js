@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import TableCreation from '../TableCreation'
 import RowCreation from '../RowCreation'
+import ViewTable from '../ViewTable'
 import './index.css'
 
 
@@ -28,7 +29,6 @@ const getColumnListFromLocalStorage=()=>{
     }
 }
 let columnList=getColumnListFromLocalStorage()
-console.log(columnList)
 
 const getRowListFromLocalStorage=()=>{
     let stringifiedRowList = localStorage.getItem("rowList");
@@ -77,19 +77,23 @@ class ColumnCreation extends Component{
         
         columnList.push({columnName:columnName,columnType:columnType,multipleSelect:multipleSelect,id:columnList.length+1})
         colName.value=''
+        if (colType.value==='multiSelect'){
+            multiSelectElement.value=''
+        }
     }
 
 
     onSaving=()=>{
         const {rows}=this.state
+        this.setState({rows:rows})
         localStorage.setItem("columnList",JSON.stringify(columnList))
         localStorage.setItem("rowList",JSON.stringify(rowList))
         localStorage.setItem("rows",JSON.stringify(rows))
+        
     }
     onChangeInputEvent=(id,event)=>{
         this.setState({[id]:event.target.value})
         rowList.push({[id]:event.target.value})
-
     }
     onAdd=()=>{
         const {rows}=this.state
@@ -98,6 +102,17 @@ class ColumnCreation extends Component{
     }
     render(){
         const {columnType,rows}=this.state
+        let viewTableList=[]
+        for(let each of rowList){
+            let keyValue=(Object.keys(each))[0]
+            if(!viewTableList.includes(keyValue[keyValue.length-1])){
+                if(each[keyValue]!==''){
+                    viewTableList.push(keyValue[keyValue.length-1])
+                }
+                
+            }
+        }
+        viewTableList.sort()
         const multiSelect= columnType==="multiSelect" ? (
             <div className="input-container">
                         <label htmlFor="multiSelect" className="label">
@@ -123,7 +138,7 @@ class ColumnCreation extends Component{
                             Column Type: 
                         </label>
                         <select className="select" id="colType" onChange={this.onChangeType}>
-                            <option className="option" value="text">Text</option>
+                            <option className="option" value="number">Number</option>
                             <option className="option" value="date">Date</option>
                             <option className="option" value="multiSelect">Multi Select</option>
                         </select>
@@ -132,7 +147,7 @@ class ColumnCreation extends Component{
                     <button type="submit" className="button">Add Column</button>
                 </form>
                 <div className="table-container">
-                    <table className="table-creation" cellpadding="0" cellspacing="0" border="0">
+                    <table className="table-creation" cellPadding="0" cellSpacing="0" border="0">
                         <tr className="table-row">
                             {columnList.map(eachList=>(
                                     <TableCreation columnName={eachList.columnName}  key={eachList.id} />
@@ -144,7 +159,7 @@ class ColumnCreation extends Component{
                             {rows.map(eachRow=>(
                                 <tr key={eachRow.id}>
                                     {columnList.map(eachList=>(
-                                            <RowCreation  columnCount={columnCount} onChangeInputEvent={this.onChangeInputEvent} rowValue={rowList} id={(eachList.columnName)+String(eachRow)} key={(eachList.columnName)+String(eachRow)} multipleSelect={eachList.multipleSelect} />
+                                            <RowCreation columnName={eachList.columnName} columnType={eachList.columnType} columnCount={columnCount} onChangeInputEvent={this.onChangeInputEvent} rowValue={rowList} id={(eachList.columnName)+String(eachRow)} key={(eachList.columnName)+String(eachRow)} multipleSelect={eachList.multipleSelect} />
                                         ))}
                                 </tr>
                             ))}
@@ -156,7 +171,29 @@ class ColumnCreation extends Component{
                 <div className="btn-container">
                         <button type="button" onClick={this.onAdd}>Add Row</button>
                         <button type="button" onClick={this.onSaving}>Save</button>
+                </div>
+                <div className="table-container" >
+                    <table className="table-creation" cellPadding="0" cellSpacing="0" border="0">
+                        <tr className="table-row">
+                            {columnList.map(eachList=>(
+                                    <TableCreation columnName={eachList.columnName}  key={eachList.id} />
+                                ))}
+                        </tr>
+                    </table>
+                    <div className="tb-view-content">
+                        <table className="">
+                            {viewTableList.map(eachRow=>(
+                                <tr key={eachRow.id}>
+                                    {columnList.map(eachList=>(
+                                            <ViewTable  columnCount={columnCount}  rowValue={rowList} id={(eachList.columnName)+String(eachRow)} key={(eachList.columnName)+String(eachRow)} multipleSelect={eachList.multipleSelect} />
+                                        ))}
+                                </tr>
+                            ))}
+                            
+                        </table>
                     </div>
+                    
+                </div>
             </div>
         )
     }

@@ -1,20 +1,39 @@
 import './index.css'
 
 const RowCreation=(props)=>{
-    const {multipleSelect,id,onChangeInputEvent,rowValue}=props
+    const {multipleSelect,columnType,id,onChangeInputEvent,rowValue}=props
+    let inputType
+    
+    if(columnType==='date'){
+        inputType='date'
+    }
+    else{
+        inputType='text'
+    }
     let renderRow=null
     let rowId=id
    let rowList=[]
-   let inputValue=null
+   let inputValue
    rowList.push({[id]:''})
-    console.log(rowValue,'hg',rowId)
-    for(let each of rowValue){
+   for(let each of rowValue){
         if (rowId in each){
             inputValue=each[rowId]
         }
     }
-    const onChangeInput=(event)=>{
-        onChangeInputEvent(rowId,event)
+    const onChangeInput=(event)=>{   
+        let rowEl=document.getElementById(rowId)
+        if(inputType!=='date'){
+            if(!isNaN(rowEl.value)){
+                onChangeInputEvent(rowId,event)
+            }
+            else{
+                rowEl.value=''
+                alert('Please provide valid number')
+            }
+        }
+        
+            
+        onChangeInputEvent(rowId,event)    
     }
     const onChangeOption=(event)=>{
         onChangeInputEvent(rowId,event)
@@ -22,7 +41,7 @@ const RowCreation=(props)=>{
     if(multipleSelect===''){
          renderRow=(
             <td className="column-heading">
-                    <input type="text" className="row-text" id={rowId} defaultValue={inputValue}  onBlur={onChangeInput}/>
+                    <input type={inputType} className="row-text" id={rowId} defaultValue={inputValue}  onBlur={onChangeInput}/>
                 </td>
         )
     }
@@ -31,6 +50,7 @@ const RowCreation=(props)=>{
          renderRow=(
             <td className="column-heading">
                     <select className="multi-select" id={rowId} defaultValue={inputValue} onChange={onChangeOption}>
+                        <option>select</option>
                         {multiList.map((each)=>(
                             <option value={each}>{each}</option>
                         ))}

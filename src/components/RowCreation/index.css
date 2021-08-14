@@ -1,6 +1,6 @@
 .row-text{
     outline: none;
-    width: 100px;
+    min-width: 100px;
     border: none;
     padding-left: 0px;
     background-color: transparent;
