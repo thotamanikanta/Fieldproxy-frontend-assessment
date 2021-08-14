@@ -48,7 +48,7 @@ const RowCreation=(props)=>{
         const multiList=multipleSelect.split(',')
          renderRow=(
             <td className="column-heading">
-                    <select className="multi-select" id={rowId} onBlur={onChangeOption}>
+                    <select className="multi-select" id={rowId} defaultValue={inputValue} onBlur={onChangeOption}>
                         <option>select</option>
                         {multiList.map((each)=>(
                             <option value={each}>{each}</option>
